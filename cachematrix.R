@@ -1,6 +1,7 @@
-## Implementation of Lexical scoping concept
+## Implementation of Lexical scoping concept.
 
-## Below function creates Matrix 
+## Below function makeCacheMatrix() creates a special "matrix" object that can cache its inverse.
+## It has nested functions to set and get matrix and inverse of matrix. 
 
 makeCacheMatrix <- function(x = matrix()) {
         inv.mat <- NULL
@@ -12,15 +13,18 @@ makeCacheMatrix <- function(x = matrix()) {
         setInv <- function(inv) inv.mat <<- inv
         getInv <- function() inv.mat
         list(set = set, get = get,
-             setInv = setInv,
-             getInv = getInv)
+                setInv = setInv,
+                getInv = getInv)
 }
 
 
-## returns inverse of matrix
+## Below function cacheSolve() computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
+## If the inverse has already been calculated (and the matrix has not changed),
+## then the cachesolve should retrieve the inverse from the cache.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+        ## Returns a matrix that is the inverse of 'x' either from cache, 
+        ## or by using solve function for new matrix.
         inv.mat <- x$getInv()
         if(!is.null(inv.mat)) {
                 message("getting cached data")
